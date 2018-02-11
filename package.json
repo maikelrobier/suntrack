@@ -12,9 +12,14 @@
   },
   "scripts": {
     "eslint": "$(yarn bin)/eslint --ext=.js",
-    "lint": "yarn eslint -- api"
+    "lint": "yarn eslint -- api",
+    "start-api": "babel-node ./api/main.js --presets es2015,stage-2"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.2.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
     "eslint": "^4.17.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-node": "^6.0.0"
