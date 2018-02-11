@@ -4,5 +4,24 @@
   "description": "Weather change alerts",
   "main": "index.js",
   "author": "maikelrobier <maikelrobier@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "engines": {
+    "node": "8.0.0",
+    "npm": "4.2.0",
+    "yarn": "0.23.2"
+  },
+  "scripts": {
+    "eslint": "$(yarn bin)/eslint --ext=.js",
+    "lint": "yarn eslint -- api"
+  },
+  "devDependencies": {
+    "eslint": "^4.17.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^6.0.0"
+  },
+  "dependencies": {
+    "eslint-plugin-lodash": "^2.6.1",
+    "express": "^4.16.2",
+    "lodash": "^4.17.5"
+  }
 }

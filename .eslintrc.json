@@ -1,0 +1,19 @@
+{
+  "plugins": [
+    "node",
+    "import",
+    "lodash"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:node/recommended"
+  ],
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "rules": {
+    "import/no-commonjs": 2,
+    "max-len": [2, 120, 8],
+    "no-var": 2
+  }
+}
