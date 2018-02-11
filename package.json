@@ -1,0 +1,8 @@
+{
+  "name": "suntrack",
+  "version": "0.1.0",
+  "description": "Weather change alerts",
+  "main": "index.js",
+  "author": "maikelrobier <maikelrobier@gmail.com>",
+  "license": "MIT"
+}
