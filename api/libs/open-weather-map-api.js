@@ -32,8 +32,11 @@ export default class OpenWeatherMapAPI {
 
     const response = await request({
       ...requestConfig,
+      json: true,
       url: resourceURL.toString()
     })
+
+    // console.log(response) // eslint-disable-line no-console
 
     return response
   }
@@ -84,6 +87,6 @@ export default class OpenWeatherMapAPI {
   }
 
   async getTriggers() {
-    return this.get('triggers')
+    return this.get('triggers', { version: '3.0' })
   }
 }

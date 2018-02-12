@@ -4,14 +4,17 @@ import express from 'express'
 import _ from 'lodash'
 
 import OpenWeatherMapAPI from './libs/open-weather-map-api'
+import { parseForecast } from './libs/open-weather-map-forecast'
 
 const weather = new OpenWeatherMapAPI({
   apiKey: process.env.OWM_API_KEY,
 })
 
-// weather.getForecastByZipCode('77049')
+weather.getForecastByZipCode('77049').then(response => {
+  parseForecast(response)
+})
 // weather.createTrigger()
-weather.getTriggers()
+// weather.getTriggers()
 
 const publicDir = path.join(__dirname, 'public')
 
