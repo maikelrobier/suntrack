@@ -13,8 +13,9 @@
   "scripts": {
     "flow": "$(yarn bin)/flow check",
     "lint:eslint": "$(yarn bin)/eslint --ext=.js",
-    "lint": "yarn lint:eslint -- api",
-    "start-api": "babel-node ./api/main.js --presets es2015,stage-2"
+    "lint": "yarn run lint:eslint -- api",
+    "start-api:dev": "$(yarn bin)/nodemon ./api/main.js --exec babel-node --presets es2015,stage-2",
+    "start-api": "yarn run start-api:dev"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -25,7 +26,8 @@
     "eslint": "^4.17.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-node": "^6.0.0",
-    "flow-bin": "^0.65.0"
+    "flow-bin": "^0.65.0",
+    "nodemon": "^1.14.12"
   },
   "dependencies": {
     "eslint-plugin-lodash": "^2.6.1",
