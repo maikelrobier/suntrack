@@ -6,7 +6,12 @@ import _ from 'lodash'
 /* Playground */
 import OpenWeatherMapAPI from './libs/open-weather-map-api'
 import { parseForecast } from './libs/open-weather-map-forecast'
-import Mailer from './libs/mailer'
+import WeatherOberver from './services/weather-observer'
+
+const observer = new WeatherOberver()
+
+observer.observe()
+// import Mailer from './libs/mailer'
 
 const weather = new OpenWeatherMapAPI({
   apiKey: process.env.OWM_API_KEY,
@@ -18,18 +23,18 @@ weather.getForecastByZipCode('77049').then(response => {
 // weather.createTrigger()
 // weather.getTriggers()
 
-const mailOptions = {
-  to: 'maikelrobier@gmail.com',
-  subject: 'Weather Updates',
-  text: 'Rain is in the forecast for Friday. Stay dry!'
-}
+// const mailOptions = {
+//   to: 'mail@gmail.com',
+//   subject: 'Weather Updates',
+//   text: 'Rain is in the forecast for Friday. Stay dry!'
+// }
 
-const mailer = new Mailer({
-  user: process.env.EMAIL_USER,
-  password: process.env.EMAIL_PASSWORD,
-})
+// const mailer = new Mailer({
+//   user: process.env.EMAIL_USER,
+//   password: process.env.EMAIL_PASSWORD,
+// })
 
-mailer.sendMail(mailOptions)
+// mailer.sendMail(mailOptions)
 /* End: Playground */
 
 const publicDir = path.join(__dirname, 'public')

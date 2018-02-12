@@ -10,8 +10,9 @@ type AccountSettings = {
 }
 
 type MailOptions = {
+  html?: string,
   subject: string,
-  text: string,
+  text?: string,
   to: string,
 }
 

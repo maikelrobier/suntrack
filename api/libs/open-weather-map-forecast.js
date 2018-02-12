@@ -30,27 +30,27 @@ type OWMForecastResponse = {
 
 // normalized objects
 
-type ForecastBasicData = {
+export type ForecastBasicData = {
   temperatureMax: number,
   temperatureMin: number,
 }
 
-type ForecastRainData = {
+export type ForecastRainData = {
   chance: number,
 }
 
-type ForecastSegment = {
+export type ForecastSegment = {
   basic: ForecastBasicData,
   rain: ForecastRainData,
   time: string,
 }
 
-type ForecastDay = {
+export type ForecastDay = {
   segments: ForecastSegment[],
   time: string,
 }
 
-type Forecast = {
+export type Forecast = {
   days: ForecastDay[]
 }
 
