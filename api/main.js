@@ -9,7 +9,9 @@ const weather = new OpenWeatherMapAPI({
   apiKey: process.env.OWM_API_KEY,
 })
 
-weather.getForecastByZipCode('77049')
+// weather.getForecastByZipCode('77049')
+// weather.createTrigger()
+weather.getTriggers()
 
 const publicDir = path.join(__dirname, 'public')
 

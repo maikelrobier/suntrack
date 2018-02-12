@@ -21,7 +21,7 @@
     "newline-before-return": 2,
     "no-trailing-spaces": 2,
     "no-var": 2,
-    "node/no-unsupported-features": [2, { "version": 8, "ignores": ["modules"] } ],
+    "node/no-unsupported-features": 0,
     "quotes": [2, "single"],
     "semi": [2, "never"]
   }

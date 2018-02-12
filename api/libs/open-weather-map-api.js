@@ -2,11 +2,20 @@
 import { URL } from 'url'
 import request from 'request-promise'
 
-const OWM_API_BASE_URL = 'https://api.openweathermap.org/data/2.5/'
+type OWMConfig = {
+  version: string,
+}
+
+const defaultOWMConfig = { version: '2.5' }
+
+function getOWMUrl(config: OWMConfig = defaultOWMConfig) {
+  return `https://api.openweathermap.org/data/${config.version}/`
+}
 
 type Attributes = {
   apiKey: string,
 }
+
 
 export default class OpenWeatherMapAPI {
   apiKey: string
@@ -15,21 +24,66 @@ export default class OpenWeatherMapAPI {
     this.apiKey = apiKey
   }
 
-  async fetch(relativeUrl: string) {
-    const resourceURL = new URL(`${OWM_API_BASE_URL}${relativeUrl}`)
+  async makeRequest(relativeUrl: string, requestConfig: Object, apiConfig?: OWMConfig) {
+    const resourceURL = new URL(`${getOWMUrl(apiConfig)}${relativeUrl}`)
 
     resourceURL.searchParams.append('appid', this.apiKey)
     resourceURL.searchParams.append('mode', 'json')
 
     const response = await request({
-      method: 'GET',
+      ...requestConfig,
       url: resourceURL.toString()
     })
 
     return response
   }
 
+  async get(relativeUrl: string, apiConfig?: OWMConfig) {
+    return this.makeRequest(relativeUrl, { method: 'GET' }, apiConfig)
+  }
+
+  async post(relativeUrl: string, data: Object, apiConfig?: OWMConfig) {
+    return this.makeRequest(relativeUrl, { method: 'POST', json: data }, apiConfig)
+  }
+
   async getForecastByZipCode(zipCode: string, countryCode?: string = 'us') {
-    return this.fetch(`forecast?zip=${encodeURIComponent(zipCode)},${encodeURI(countryCode)}`)
+    return this.get(`forecast?zip=${encodeURIComponent(zipCode)},${encodeURI(countryCode)}`)
+  }
+
+  async createTrigger() {
+    const data = {
+      'time_period': {
+        'start': {
+          'expression': 'after',
+          'amount': 1000 * 60 * 5,
+        },
+        'end': {
+          'expression': 'after',
+          'amount': 1000 * 60 * 24,
+        }
+      },
+      'conditions': [
+        {
+          'name': 'temp',
+          'expression': '$lt',
+          'amount': 277,
+        }
+      ],
+      'area': [
+        {
+          'type': 'Point',
+          'coordinates': [
+            -95.3698028,
+            29.7604267
+          ]
+        }
+      ]
+    }
+
+    return this.post('triggers', data, { version: '3.0' })
+  }
+
+  async getTriggers() {
+    return this.get('triggers')
   }
 }
