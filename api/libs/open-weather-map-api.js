@@ -16,7 +16,6 @@ type Attributes = {
   apiKey: string,
 }
 
-
 export default class OpenWeatherMapAPI {
   apiKey: string
 
