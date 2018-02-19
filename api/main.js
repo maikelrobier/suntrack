@@ -7,6 +7,14 @@ import bodyParser from 'body-parser'
 import config from './config'
 import router from './router'
 
+/* Playground */
+import WeatherObserverService from './services/weather-observer-service'
+
+const weatherObserver = new WeatherObserverService('77049')
+
+weatherObserver.observe()
+/* End: Playground */
+
 /* settings */
 const networkIP = _.chain(os.networkInterfaces())
   .values()

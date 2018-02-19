@@ -1,4 +1,5 @@
 // @flow
+import _ from 'lodash'
 import config from '../config'
 import OpenWeatherMapAPI from '../libs/open-weather-map-api'
 import {
@@ -8,6 +9,8 @@ import {
 
 const weatherAPI = new OpenWeatherMapAPI({ apiKey: config.owm.apiKey })
 
+const ONE_HOUR = 1000 * 60 * 60
+
 async function getForecast(zipCode: string): Promise<Forecast> {
   const response = await weatherAPI.getForecastByZipCode(zipCode)
 
@@ -15,5 +18,5 @@ async function getForecast(zipCode: string): Promise<Forecast> {
 }
 
 export default {
-  getForecast,
+  getForecast: _.throttle(getForecast, ONE_HOUR),
 }
