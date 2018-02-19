@@ -1,12 +1,14 @@
 // @flow
 import nodemailer from 'nodemailer'
 
-const FROM_NAME = 'Suntrack Bot'
-const FROM_ADDRESS = 'no-reply.bot.suntrack@gmail.com'
-
 type AccountSettings = {
   user: string,
   password: string,
+}
+
+type SenderInfo = {
+  name: string,
+  address: string,
 }
 
 type MailOptions = {
@@ -18,8 +20,9 @@ type MailOptions = {
 
 export default class Mailer {
   transporter: any
+  senderInfo: SenderInfo
 
-  constructor({ user, password }: AccountSettings) {
+  constructor({ user, password }: AccountSettings, senderInfo: SenderInfo) {
     this.transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -27,24 +30,22 @@ export default class Mailer {
         pass: password,
       }
     })
+    this.senderInfo = senderInfo
   }
 
   async sendMail(mailOptions: MailOptions) {
     const mail = {
       ...mailOptions,
-      from: {
-        name: FROM_NAME,
-        address: FROM_ADDRESS,
-      },
+      from: this.senderInfo,
     }
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve: Function, reject: Function) => {
       this.transporter.sendMail(mail, function (error, info) {
         if (error) {
-          reject(error)
-        } else {
-          resolve(info.response)
+          return reject(error)
         }
+
+        return resolve(info.response)
       })
     })
   }

@@ -12,14 +12,14 @@ function getOWMUrl(config: OWMConfig = defaultOWMConfig) {
   return `https://api.openweathermap.org/data/${config.version}/`
 }
 
-type Attributes = {
+type APISettings = {
   apiKey: string,
 }
 
 export default class OpenWeatherMapAPI {
   apiKey: string
 
-  constructor({ apiKey }: Attributes) {
+  constructor({ apiKey }: APISettings) {
     this.apiKey = apiKey
   }
 
@@ -35,8 +35,6 @@ export default class OpenWeatherMapAPI {
       url: resourceURL.toString()
     })
 
-    // console.log(response) // eslint-disable-line no-console
-
     return response
   }
 
@@ -50,42 +48,5 @@ export default class OpenWeatherMapAPI {
 
   async getForecastByZipCode(zipCode: string, countryCode?: string = 'us') {
     return this.get(`forecast?zip=${encodeURIComponent(zipCode)},${encodeURI(countryCode)}`)
-  }
-
-  async createTrigger() {
-    const data = {
-      'time_period': {
-        'start': {
-          'expression': 'after',
-          'amount': 1000 * 60 * 5,
-        },
-        'end': {
-          'expression': 'after',
-          'amount': 1000 * 60 * 24,
-        }
-      },
-      'conditions': [
-        {
-          'name': 'temp',
-          'expression': '$lt',
-          'amount': 277,
-        }
-      ],
-      'area': [
-        {
-          'type': 'Point',
-          'coordinates': [
-            -95.3698028,
-            29.7604267
-          ]
-        }
-      ]
-    }
-
-    return this.post('triggers', data, { version: '3.0' })
-  }
-
-  async getTriggers() {
-    return this.get('triggers', { version: '3.0' })
   }
 }

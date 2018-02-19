@@ -7,22 +7,19 @@ import {
   parseForecast,
   type Forecast,
 } from '../libs/open-weather-map-forecast'
+import config from '../config'
 
 const TEMPERATURE_CHANGE_TRESHOLD_F = 10
 const RAIN_CHANCE_CHANGE_TRESHOLD = 0.1
 const hardCodedZip = '77049'
 const hardCodedCity = 'Houston'
+const POLL_INTERVAL = 1000 * 60 * 60 * 8 // 8hrs
 
 const weather = new OpenWeatherMapAPI({
-  apiKey: process.env.OWM_API_KEY,
+  apiKey: config.owm.apiKey,
 })
 
-const mailer = new Mailer({
-  user: process.env.EMAIL_USER,
-  password: process.env.EMAIL_PASSWORD,
-})
-
-const POLL_INTERVAL = 1000 * 60 * 60 * 8 // 8hrs
+const mailer = new Mailer(config.email.settings, config.email.sender)
 
 let lastForecast = null
 // let lastForecast = {
@@ -83,7 +80,7 @@ function getForecastAlert(before: Forecast, after: Forecast): string | null {
 
 function notifyByEmail(text: string) {
   const mailOptions = {
-    to: 'maikelrobier@gmail.com, beatrizcalzadilla@gmail.com',
+    to: 'maikelrobier@gmail.com',
     subject: 'Weather Updates',
     html: `
       <div>
