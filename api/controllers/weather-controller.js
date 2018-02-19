@@ -7,8 +7,8 @@ import ForecastService from '../services/weather-service'
 
 export default {
   get: async function (req: Request, res: Response) {
-    const forecast = await ForecastService.getForecast('77049')
+    const current = await ForecastService.getCurrent('77049')
 
-    res.json({ forecast })
+    res.json({ current })
   }
 }

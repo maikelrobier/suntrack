@@ -1,7 +1,9 @@
 // @flow
 import _ from 'lodash'
 
-// OWM API objects
+/* OWM API objects */
+
+// Forecast
 
 type OWMForecastMain = {
   grnd_level: number,
@@ -15,7 +17,7 @@ type OWMForecastMain = {
 }
 
 type OWMForecastRain = {
-  '3h'?: number, // chance of precipitation for last 3 hours
+  '3h'?: number,
 }
 
 type OWMForecastItem = {
@@ -25,10 +27,31 @@ type OWMForecastItem = {
 }
 
 type OWMForecastResponse = {
+  city: {
+    name: string,
+  },
   list: OWMForecastItem[],
 }
 
-// normalized objects
+// Current weather
+
+type OWMCurrentWeatherMain = {
+  humidity: number,
+  pressure: number,
+  temp: number,
+  temp_max: number,
+  temp_min: number,
+}
+
+type OWMCurrentWeatherResponse = {
+  main: OWMCurrentWeatherMain,
+  name: string,
+}
+/* End: OWM API objects */
+
+/* Normalized Objects */
+
+// Forecast
 
 export type ForecastBasicData = {
   temperatureMax: number,
@@ -51,8 +74,25 @@ export type ForecastDay = {
 }
 
 export type Forecast = {
+  city: {
+    name: string,
+  },
   days: ForecastDay[]
 }
+
+// CurrentWeather
+export type CurrentWeather = {
+  city: {
+    name: string,
+  },
+  main: {
+    temperature: number,
+    temperatureMax: number,
+    temperatureMin: number,
+  },
+}
+
+/* End: Normalized Objects */
 
 function createSegment(item: OWMForecastItem): ForecastSegment {
   const {
@@ -88,7 +128,25 @@ export function parseForecast(forecast: OWMForecastResponse): Forecast {
   const dailyChunks = _.chunk(forecast.list, 24 / 3) // 3 hrs segments
 
   return {
+    city: {
+      name: forecast.city.name,
+    },
     days: _.map(dailyChunks, createDay),
+  }
+}
+
+export function parseCurrent(currentWeather: OWMCurrentWeatherResponse): CurrentWeather {
+  console.log(currentWeather)
+
+  return {
+    city: {
+      name: currentWeather.name,
+    },
+    main: {
+      temperature: currentWeather.main.temp,
+      temperatureMax: currentWeather.main.temp_max,
+      temperatureMin: currentWeather.main.temp_min,
+    },
   }
 }
 

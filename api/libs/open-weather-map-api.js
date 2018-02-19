@@ -49,4 +49,8 @@ export default class OpenWeatherMapAPI {
   async getForecastByZipCode(zipCode: string, countryCode?: string = 'us') {
     return this.get(`forecast?zip=${encodeURIComponent(zipCode)},${encodeURI(countryCode)}`)
   }
+
+  async getCurrentWeatherByZipCode(zipCode: string, countryCode?: string = 'us') {
+    return this.get(`weather?zip=${encodeURIComponent(zipCode)},${encodeURI(countryCode)}`)
+  }
 }

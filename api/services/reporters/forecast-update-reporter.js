@@ -1,11 +1,7 @@
 // @flow
 import _ from 'lodash'
-import {
-  type Forecast,
-} from '../../libs/open-weather-map-forecast'
-import {
-  basicReporter,
-} from './common'
+import { type Forecast } from '../../libs/open-weather-map-forecast'
+import { basicReporter } from './common'
 
 type WeatherReporter = (last: ?Forecast, current: Forecast) => string | null
 

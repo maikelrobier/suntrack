@@ -4,12 +4,12 @@ import Mailer from '../libs/mailer'
 import logger from '../libs/logger'
 import { type Forecast } from '../libs/open-weather-map-forecast'
 import config from '../config'
-import ForecastService from './forecast-service'
+import WeatherService from './weather-service'
 
 import nextDayReporter from './reporters/next-day-reporter'
 import forecastUpdateReporter from './reporters/forecast-update-reporter'
 
-const POLL_INTERVAL = 1000 * 60 * 5
+const POLL_INTERVAL = 1000 * 60 / 6
 // const POLL_INTERVAL = 1000 * 60 * 60 * 8 // 8hrs
 
 export default class WeatherObserver {
@@ -40,7 +40,7 @@ export default class WeatherObserver {
   }
 
   _check = async () => {
-    const forecast = await ForecastService.getForecast(this.zipCode)
+    const forecast = await WeatherService.getForecast(this.zipCode)
 
     logger.debug('_check()')
 
