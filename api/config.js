@@ -6,8 +6,8 @@ export default {
   },
   email: {
     settings: {
-      user: process.env.EMAIL_USER,
-      password: process.env.EMAIL_PASSWORD,
+      user: process.env.EMAIL_USER || '',
+      password: process.env.EMAIL_PASSWORD || '',
     },
     sender: {
       name: 'Suntrack Bot',
@@ -15,6 +15,6 @@ export default {
     },
   },
   owm: {
-    apiKey: process.env.OWM_API_KEY,
+    apiKey: process.env.OWM_API_KEY || '',
   },
 }
