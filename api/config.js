@@ -1,6 +1,9 @@
 // @flow
 
 export default {
+  api: {
+    port: process.env.PORT || '7070',
+  },
   email: {
     settings: {
       user: process.env.EMAIL_USER,

@@ -30,6 +30,7 @@
     "nodemon": "^1.14.12"
   },
   "dependencies": {
+    "body-parser": "^1.18.2",
     "eslint-plugin-lodash": "^2.6.1",
     "express": "^4.16.2",
     "lodash": "^4.17.5",
