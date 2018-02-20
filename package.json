@@ -1,7 +1,7 @@
 {
   "name": "suntrack",
   "version": "0.1.0",
-  "description": "Weather change alerts",
+  "description": "Weather Change Reporter",
   "main": "index.js",
   "author": "maikelrobier <maikelrobier@gmail.com>",
   "license": "MIT",
@@ -25,13 +25,13 @@
     "babel-preset-stage-2": "^6.24.1",
     "eslint": "^4.17.0",
     "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-lodash": "^2.6.1",
     "eslint-plugin-node": "^6.0.0",
     "flow-bin": "^0.65.0",
     "nodemon": "^1.14.12"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
-    "eslint-plugin-lodash": "^2.6.1",
     "express": "^4.16.2",
     "lodash": "^4.17.5",
     "moment": "^2.20.1",
